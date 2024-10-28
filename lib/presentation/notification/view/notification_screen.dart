@@ -1,3 +1,5 @@
+import 'package:dcz/core/component/fonts/dcz_text_style.dart';
+import 'package:dcz/core/component/widget/dcz_notification.dart';
 import 'package:dcz/core/component/widget/dcz_subject.dart';
 import 'package:dcz/core/dcz_color.dart';
 import 'package:dcz/presentation/notification/widget/notification_app_bar_widget.dart';
@@ -41,7 +43,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 24, top: 24),
+              padding: const EdgeInsets.only(left: 24, top: 24, right: 24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -70,6 +72,20 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       ),
                     ),
                   ),
+                  const SizedBox(height: 24),
+                  Text('수학', style: DCZTextStyle.subtitle1(color: DCZColor.white),),
+                  const SizedBox(height: 12),
+                  const SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        DczNotification(
+                          notificationTitle: '수학 수행평가 안내',
+                          date: '1일 전',
+                          state: '안 읽음',
+                        )
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),

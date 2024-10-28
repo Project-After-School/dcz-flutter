@@ -108,12 +108,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               const Spacer(),
               GestureDetector(
+                onTap: (areAllFieldsFilled && !isLoading) ? _handleLogin : null,
                 child: DczButton(
                   backgroundColor: areAllFieldsFilled ? DCZColor.main500 : DCZColor.main100,
                   color: DCZColor.black,
                   text: '로그인하기',
                 ),
-                onTap: (areAllFieldsFilled && !isLoading) ? _handleLogin : null,
               )
             ],
           ),
