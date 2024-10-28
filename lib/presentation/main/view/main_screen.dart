@@ -1,8 +1,10 @@
+import 'package:dcz/core/component/widget/dcz_solve_subject.dart';
 import 'package:dcz/core/component/widget/dcz_subject.dart';
 import 'package:dcz/core/dcz.dart';
 import 'package:dcz/presentation/main/widget/main_app_bar_widget.dart';
 import 'package:dcz/presentation/main/widget/main_title_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -46,7 +48,7 @@ class _MainScreenState extends State<MainScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      MainTitleWidget(),
+                      const MainTitleWidget(),
                       const SizedBox(height: 28),
                       SizedBox(
                         height: 100,
@@ -72,6 +74,22 @@ class _MainScreenState extends State<MainScreen> {
                         ),
                       ),
                     ],
+                  ),
+                ),
+                Padding(padding: const EdgeInsets.only(left: 24, right: 24, top: 16),
+                  child: GestureDetector(
+                    onTap: (){
+                      context.push('/main_detail');
+                    },
+                    child: const Column(
+                      children: [
+                        DczSolveSubject(
+                          solvesubjectName: '수학 포스터 만들어서 제출하기',
+                          subjectName: '수학',
+                          teacherName: '강해민',
+                        )
+                      ],
+                    ),
                   ),
                 )
               ],
