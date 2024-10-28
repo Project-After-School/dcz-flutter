@@ -35,7 +35,7 @@ class _HomeworkDetailScreenState extends State<HomeworkDetailScreen> {
   //     context.pop();
   //   } else {
   //     // 실패 시
-  //     showCustomToast(context, '과제 제출 취소에 실패했습니다. 다시 시도해주세요.');
+  //     showCustomToast(context, '과제 제출 취소에 실패했습니다.');
   //   }
   // }
 
