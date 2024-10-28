@@ -1,8 +1,7 @@
-import 'package:dcz/core/component/fonts/dcz_text_style.dart';
 import 'package:dcz/core/dcz.dart';
+import 'package:dcz/presentation/login/view/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 
 class MyPageAccountWidget extends StatelessWidget {
   const MyPageAccountWidget({super.key});
@@ -16,14 +15,12 @@ class MyPageAccountWidget extends StatelessWidget {
         const SizedBox(height: 48),
         GestureDetector(
           onTap: (){},
-          child: Container(
-            child: Row(
-              children: [
-                SvgPicture.asset('assets/images/icon/mypage/profile_edit_icon.svg'),
-                const SizedBox(width: 20),
-                Text('프로필 사진 변경', style: DCZTextStyle.subtitle2(color: DCZColor.white),)
-              ],
-            ),
+          child: Row(
+            children: [
+              SvgPicture.asset('assets/images/icon/mypage/profile_edit_icon.svg'),
+              const SizedBox(width: 20),
+              Text('프로필 사진 변경', style: DCZTextStyle.subtitle2(color: DCZColor.white),)
+            ],
           ),
         ),
         const SizedBox(height: 48),
@@ -74,7 +71,7 @@ class MyPageAccountWidget extends StatelessWidget {
                             Expanded(
                               child: TextButton(
                                 style: TextButton.styleFrom(
-                                  padding: EdgeInsets.symmetric(vertical: 8),
+                                  padding: const EdgeInsets.symmetric(vertical: 8),
                                   backgroundColor: DCZColor.gray50,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(4),
@@ -93,31 +90,32 @@ class MyPageAccountWidget extends StatelessWidget {
                             Expanded(
                               child: TextButton(
                                 style: TextButton.styleFrom(
-                                  padding: EdgeInsets.symmetric(vertical: 8),
+                                  padding: const EdgeInsets.symmetric(vertical: 8),
                                   backgroundColor: DCZColor.main500,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                 ),
                                 onPressed: () {
-
+                                  Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
+                                      MaterialPageRoute(builder: (context) => const LoginScreen()),
+                                          (route) => false
+                                  );
                                 },
                                 child: Text(
                                   '확인',
                                   style: DCZTextStyle.button2(color: DCZColor.black),
                                 ),),),],),),],),),),);
           },
-          child: Container(
-            child: Row(
-              children: [
-                SvgPicture.asset('assets/images/icon/mypage/logout_icon.svg'),
-                const SizedBox(width: 20),
-                Text(
-                  '로그아웃',
-                  style: DCZTextStyle.subtitle2(color: DCZColor.white),
-                ),
-              ],
-            ),
+          child: Row(
+            children: [
+              SvgPicture.asset('assets/images/icon/mypage/logout_icon.svg'),
+              const SizedBox(width: 20),
+              Text(
+                '로그아웃',
+                style: DCZTextStyle.subtitle2(color: DCZColor.white),
+              ),
+            ],
           ),
         )
 
