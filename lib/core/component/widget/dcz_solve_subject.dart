@@ -5,9 +5,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 class DczSolveSubject extends StatefulWidget {
 
   final String solvesubjectName;
+  final String subjectName;
+  final String teacherName;
 
   const DczSolveSubject({
     required this.solvesubjectName,
+    required this.subjectName,
+    required this.teacherName,
     super.key});
 
   @override
@@ -48,9 +52,9 @@ class _DczSolveSubjectState extends State<DczSolveSubject> {
                 ),
               ),
               const SizedBox(width: 12),
-              Text('수학', style: DCZTextStyle.body2(color: DCZColor.gray200),),
+              Text(widget.subjectName, style: DCZTextStyle.body2(color: DCZColor.gray200),),
               const SizedBox(width: 12),
-              Text('강해민 선생님', style: DCZTextStyle.body2(color: DCZColor.gray200),)
+              Text('${widget.teacherName} 선생님', style: DCZTextStyle.body2(color: DCZColor.gray200),)
             ],
           ),
           const SizedBox(height: 14),
