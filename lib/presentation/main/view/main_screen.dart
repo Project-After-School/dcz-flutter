@@ -81,13 +81,41 @@ class _MainScreenState extends State<MainScreen> {
                     onTap: (){
                       context.push('/main_detail');
                     },
-                    child: const Column(
+                    child: Column(
                       children: [
                         DczSolveSubject(
-                          solvesubjectName: '수학 포스터 만들어서 제출하기',
+                          solveSubjectName: '수학 포스터 만들어서 제출하기',
                           subjectName: '수학',
                           teacherName: '강해민',
-                        )
+                          color: DCZColor.green,
+                        ),
+                        const SizedBox(height: 20,),
+                        DczSolveSubject(
+                          solveSubjectName: '수학 포스터 만들어서 제출하기',
+                          subjectName: '수학',
+                          teacherName: '강해민',
+                          color: DCZColor.main900,
+                        ),
+                        const SizedBox(height: 20,),
+                        DczSolveSubject(
+                          solveSubjectName: '수학 포스터 만들어서 제출하기',
+                          subjectName: '수학',
+                          teacherName: '강해민',
+                          color: DCZColor.main900,
+                        ),const SizedBox(height: 20,),
+                        DczSolveSubject(
+                          solveSubjectName: '수학 포스터 만들어서 제출하기',
+                          subjectName: '수학',
+                          teacherName: '강해민',
+                          color: DCZColor.main900,
+                        ),const SizedBox(height: 20,),
+                        DczSolveSubject(
+                          solveSubjectName: '수학 포스터 만들어서 제출하기',
+                          subjectName: '수학',
+                          teacherName: '강해민',
+                          color: DCZColor.main900,
+                        ),
+                        const SizedBox(height: 20,),
                       ],
                     ),
                   ),

@@ -1,6 +1,5 @@
 import 'package:dcz/core/component/widget/dcz_submit_subject.dart';
 import 'package:dcz/core/dcz_color.dart';
-import 'package:dcz/core/router.dart';
 import 'package:dcz/presentation/%20homework/widget/homework_app_bar_widget.dart';
 import 'package:dcz/presentation/%20homework/widget/homework_title_widget.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +38,17 @@ class _HomeworkScreenState extends State<HomeworkScreen> {
                         onTap: (){
                           context.push('/homework_detail');
                         },
-                        child: DczSubmitSubject(),
+                        child: Column(
+                          children: [
+                            DczSubmitSubject(),
+                            const SizedBox(height: 20),
+                            DczSubmitSubject(),
+                            const SizedBox(height: 20),
+                            DczSubmitSubject(),
+                            const SizedBox(height: 20),
+                            DczSubmitSubject(),
+                          ],
+                        ),
                       )
                     ],
                   ),
