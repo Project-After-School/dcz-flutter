@@ -46,10 +46,10 @@ final router = GoRouter(
         path: '/notification_detail',
         builder: (context, state) => const NotificationDetailScreen()
     ),
-      GoRoute(
-          path: '/homework',
-          builder: (context, state) => const HomeworkScreen()
-      ),
+    GoRoute(
+        path: '/homework',
+        builder: (context, state) => const HomeworkScreen()
+    ),
     GoRoute(
         path: '/homework_detail',
         builder: (context, state) => const HomeworkDetailScreen()
