@@ -19,8 +19,7 @@ class MainDetailScreen extends StatefulWidget {
 
 class _MainDetailScreenState extends State<MainDetailScreen> {
   bool isSubmitted = false;
-  bool fileSelected = false;
-  String? fileName;
+  List<String> fileList = [];
 
   void toggleSubmission() {
     setState(() {
@@ -32,12 +31,11 @@ class _MainDetailScreenState extends State<MainDetailScreen> {
   }
 
   Future<void> pickFile() async {
-    final result = await FilePicker.platform.pickFiles();
+    final result = await FilePicker.platform.pickFiles(allowMultiple: true);
 
     if (result != null) {
       setState(() {
-        fileSelected = true;
-        fileName = result.files.first.name;
+        fileList = result.files.map((file) => file.name).toList();
       });
     }
   }
@@ -105,7 +103,7 @@ class _MainDetailScreenState extends State<MainDetailScreen> {
                                   GestureDetector(
                                     onTap: () async {
                                       await pickFile();
-                                      setState(() {});  // 다이얼로그 내부 상태 업데이트
+                                      setState(() {});
                                     },
                                     child: Container(
                                       width: 77,
@@ -125,36 +123,42 @@ class _MainDetailScreenState extends State<MainDetailScreen> {
                                 ],
                               ),
                               const SizedBox(height: 20),
-                              if (fileSelected)
-                                Container(
-                                  margin: const EdgeInsets.only(top: 10),
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    color: DCZColor.gray700,
-                                    borderRadius: BorderRadius.circular(8),
-                                    border: Border.all(color: DCZColor.gray900),
-                                  ),
-                                  height: 44,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          fileName ?? '',
-                                          style: DCZTextStyle.label3(color: DCZColor.white),
-                                          overflow: TextOverflow.ellipsis,
+                              if (fileList.isNotEmpty)
+                                Expanded(
+                                  child: ListView.builder(
+                                    itemCount: fileList.length,
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                        margin: const EdgeInsets.only(top: 10),
+                                        padding: const EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                          color: DCZColor.gray700,
+                                          borderRadius: BorderRadius.circular(8),
+                                          border: Border.all(color: DCZColor.gray900),
                                         ),
-                                      ),
-                                      GestureDetector(
-                                        child: SvgPicture.asset('assets/images/icon/main_detail/delete_icon.svg'),
-                                        onTap: () {
-                                          setState(() {
-                                            fileSelected = false;
-                                            fileName = null;
-                                          });
-                                        },
-                                      ),
-                                    ],
+                                        height: 44,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                fileList[index],
+                                                style: DCZTextStyle.label3(color: DCZColor.white),
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                            GestureDetector(
+                                              child: SvgPicture.asset('assets/images/icon/main_detail/delete_icon.svg'),
+                                              onTap: () {
+                                                setState(() {
+                                                  fileList.removeAt(index);
+                                                });
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
                                   ),
                                 ),
                               const Spacer(),
@@ -167,7 +171,7 @@ class _MainDetailScreenState extends State<MainDetailScreen> {
                                   width: MediaQuery.of(context).size.width,
                                   height: 42,
                                   decoration: BoxDecoration(
-                                    color: (fileSelected) ? DCZColor.main500 : DCZColor.main100,
+                                    color: (fileList.isNotEmpty) ? DCZColor.main500 : DCZColor.main100,
                                     borderRadius: BorderRadius.circular(12),
                                   ),
                                   child: Center(
