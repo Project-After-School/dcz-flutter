@@ -1,5 +1,6 @@
 import 'package:dcz/core/dcz.dart';
 import 'package:flutter/material.dart';
+import 'package:dcz/presentation/my_page/widget/my_page_account_widget.dart';
 
 class MyPageProfileWidget extends StatefulWidget {
   const MyPageProfileWidget({super.key});

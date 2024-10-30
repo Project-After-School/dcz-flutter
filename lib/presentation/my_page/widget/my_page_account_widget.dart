@@ -2,9 +2,22 @@ import 'package:dcz/core/dcz.dart';
 import 'package:dcz/presentation/login/view/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
 
-class MyPageAccountWidget extends StatelessWidget {
+class MyPageAccountWidget extends StatefulWidget {
   const MyPageAccountWidget({super.key});
+
+  @override
+  State<MyPageAccountWidget> createState() => _MyPageAccountWidgetState();
+}
+
+class _MyPageAccountWidgetState extends State<MyPageAccountWidget> {
+
+  final ImagePicker picker = ImagePicker();
+
+  Future getImage(ImageSource imageSource) async{
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +27,9 @@ class MyPageAccountWidget extends StatelessWidget {
         Text('계정', style: DCZTextStyle.subtitle2(color: DCZColor.white),),
         const SizedBox(height: 48),
         GestureDetector(
-          onTap: (){},
+          onTap: (){
+
+          },
           child: Row(
             children: [
               SvgPicture.asset('assets/images/icon/mypage/profile_edit_icon.svg'),
@@ -118,7 +133,6 @@ class MyPageAccountWidget extends StatelessWidget {
             ],
           ),
         )
-
       ],
     );
   }
