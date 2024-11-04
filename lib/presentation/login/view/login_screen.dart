@@ -1,10 +1,11 @@
-import 'package:dcz/core/component/widget/dcz_button.dart';
-import 'package:dcz/core/component/widget/dcz_textfield.dart';
-import 'package:dcz/core/dcz.dart';
 import 'package:dcz/data/data_sources/remote/login_remote_data_source.dart';
 import 'package:dcz/presentation/login/widget/login_title_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:dcz/core/component/widget/dcz_textfield.dart';
+import 'package:dcz/core/component/widget/dcz_button.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter/material.dart';
+import 'package:dcz/core/dcz.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -22,9 +23,15 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isLoading = false;
   String? errorMessage;
 
+  static final storage = FlutterSecureStorage();
+  String? userInfo;
+
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _checkLoginStatus();
+    });
     idController = TextEditingController();
     pwdController = TextEditingController();
     idFocusNode = FocusNode();
@@ -32,6 +39,17 @@ class _LoginScreenState extends State<LoginScreen> {
     idController.addListener(_checkFields);
     pwdController.addListener(_checkFields);
   }
+
+  Future<void> _checkLoginStatus() async {
+    userInfo = await storage.read(key: 'login');
+
+    if (userInfo != null) {
+      context.push('/navigation');
+    } else {
+      print('로그인이 필요합니다');
+    }
+  }
+
 
   void _checkFields() {
     setState(() {
@@ -47,6 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     try {
       await postLoginInfo(idController.text, pwdController.text);
+      await storage.write(key: 'login', value: idController.text);
       context.push('/navigation');
     } catch (e) {
       setState(() {
@@ -114,7 +133,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: DCZColor.black,
                   text: '로그인하기',
                 ),
-              )
+              ),
+              const SizedBox(height: 32)
             ],
           ),
         ),
