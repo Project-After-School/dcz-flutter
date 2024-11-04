@@ -46,10 +46,7 @@ class _NotificationDetailQnaWidgetState extends State<NotificationDetailQnaWidge
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 4),
-                  child: Text(
-                    _messages[index],
-                    style: DCZTextStyle.body3(color: DCZColor.white),
-                  ),
+                  child: _buildMessageBubble(_messages[index]),
                 );
               },
             ),
@@ -87,6 +84,24 @@ class _NotificationDetailQnaWidgetState extends State<NotificationDetailQnaWidge
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildMessageBubble(String message) {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        margin: const EdgeInsets.only(bottom: 10),
+        decoration: BoxDecoration(
+          color: DCZColor.gray800,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Text(
+          message,
+          style: DCZTextStyle.caption3(color: DCZColor.white),
+        ),
       ),
     );
   }
