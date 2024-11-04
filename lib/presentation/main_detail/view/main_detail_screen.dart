@@ -161,7 +161,6 @@ class _MainDetailScreenState extends State<MainDetailScreen> {
                                     },
                                   ),
                                 ),
-                              const Spacer(),
                               GestureDetector(
                                 onTap: () {
                                   Navigator.pop(context);
