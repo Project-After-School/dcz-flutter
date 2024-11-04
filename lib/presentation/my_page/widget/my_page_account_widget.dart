@@ -1,8 +1,8 @@
 import 'package:dcz/core/dcz.dart';
-import 'package:dcz/presentation/login/view/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:go_router/go_router.dart';
 
 class MyPageAccountWidget extends StatefulWidget {
   const MyPageAccountWidget({super.key});
@@ -12,11 +12,11 @@ class MyPageAccountWidget extends StatefulWidget {
 }
 
 class _MyPageAccountWidgetState extends State<MyPageAccountWidget> {
+  final storage = FlutterSecureStorage();
 
-  final ImagePicker picker = ImagePicker();
-
-  Future getImage(ImageSource imageSource) async{
-
+  Future<void> _handleLogout() async{
+    await storage.delete(key: 'login');
+    context.go('/login');
   }
 
   @override
@@ -111,9 +111,7 @@ class _MyPageAccountWidgetState extends State<MyPageAccountWidget> {
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                 ),
-                                onPressed: () {
-
-                                },
+                                onPressed: _handleLogout,
                                 child: Text(
                                   '확인',
                                   style: DCZTextStyle.button2(color: DCZColor.black),
