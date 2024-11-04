@@ -272,6 +272,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "flutter_secure_storage",
+      "rootUri": "file:///Users/user/.pub-cache/hosted/pub.dev/flutter_secure_storage-4.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_svg",
       "rootUri": "file:///Users/user/.pub-cache/hosted/pub.dev/flutter_svg-2.0.10+1",
       "packageUri": "lib/",
@@ -806,7 +812,7 @@
       "languageVersion": "3.5"
     }
   ],
-  "generated": "2024-10-30T13:12:36.718285Z",
+  "generated": "2024-11-04T08:15:31.884924Z",
   "generator": "pub",
   "generatorVersion": "3.5.0",
   "flutterRoot": "file:///Users/user/Desktop/flutter",
