@@ -112,10 +112,7 @@ class _MyPageAccountWidgetState extends State<MyPageAccountWidget> {
                                   ),
                                 ),
                                 onPressed: () {
-                                  Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
-                                      MaterialPageRoute(builder: (context) => const LoginScreen()),
-                                          (route) => false
-                                  );
+
                                 },
                                 child: Text(
                                   '확인',
