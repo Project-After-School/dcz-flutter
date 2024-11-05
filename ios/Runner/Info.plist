@@ -14,6 +14,8 @@
 	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>dcz</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>프로필 사진을 변경</string>
 	<key>NSAppTransportSecurity</key>
     <dict>
         <key>NSAllowsArbitraryLoads</key>
