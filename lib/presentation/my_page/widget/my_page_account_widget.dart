@@ -13,7 +13,7 @@ class MyPageAccountWidget extends StatefulWidget {
   State<MyPageAccountWidget> createState() => _MyPageAccountWidgetState();
 }
 class _MyPageAccountWidgetState extends State<MyPageAccountWidget> {
-  final storage = const FlutterSecureStorage();
+  final storage = const  FlutterSecureStorage();
   File? _profileImage;
 
   @override
