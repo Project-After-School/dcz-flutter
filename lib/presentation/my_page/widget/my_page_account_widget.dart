@@ -1,8 +1,10 @@
-import 'package:dcz/core/dcz.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter/material.dart';
+import 'package:dcz/core/dcz.dart';
+import 'dart:io';
 
 class MyPageAccountWidget extends StatefulWidget {
   const MyPageAccountWidget({super.key});
@@ -10,13 +12,40 @@ class MyPageAccountWidget extends StatefulWidget {
   @override
   State<MyPageAccountWidget> createState() => _MyPageAccountWidgetState();
 }
-
 class _MyPageAccountWidgetState extends State<MyPageAccountWidget> {
-  final storage = FlutterSecureStorage();
+  final storage = const FlutterSecureStorage();
+  File? _profileImage;
 
-  Future<void> _handleLogout() async{
+  @override
+  void initState() {
+    super.initState();
+    _loadProfileImage();
+  }
+
+  Future<void> _loadProfileImage() async {
+    String? imagePath = await storage.read(key: 'profileImage');
+    if (imagePath != null) {
+      setState(() {
+        _profileImage = File(imagePath);
+      });
+    }
+  }
+
+  Future<void> _handleLogout() async {
     await storage.delete(key: 'login');
     context.go('/login');
+  }
+
+  Future<void> _pickImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      setState(() {
+        _profileImage = File(image.path);
+      });
+      await storage.write(key: 'profileImage', value: image.path);
+    }
   }
 
   @override
@@ -24,20 +53,43 @@ class _MyPageAccountWidgetState extends State<MyPageAccountWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('계정', style: DCZTextStyle.subtitle2(color: DCZColor.white),),
+        Row(
+          children: [
+            Container(
+              width: 52,
+              height: 52,
+              decoration: BoxDecoration(
+                color: DCZColor.gray900,
+                borderRadius: BorderRadius.circular(100),
+                image: _profileImage != null
+                    ? DecorationImage(
+                  image: FileImage(_profileImage!),
+                  fit: BoxFit.cover,
+                ) : null,
+              ),
+            ),
+            const SizedBox(width: 24),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('2학년 3반 1번', style: DCZTextStyle.body2(color: DCZColor.white),),
+                const SizedBox(height: 12),
+                Text('강해민', style: DCZTextStyle.body1(color: DCZColor.white),),
+              ],
+            )
+          ],
+        ),
+        const SizedBox(height: 64),
+        Text('계정', style: DCZTextStyle.subtitle2(color: DCZColor.white)),
         const SizedBox(height: 48),
         GestureDetector(
-          onTap: (){
-
-          },
+          onTap: _pickImage,
           child: Row(
             children: [
               SvgPicture.asset('assets/images/icon/mypage/profile_edit_icon.svg'),
               const SizedBox(width: 20),
-              Text('프로필 사진 변경', style: DCZTextStyle.subtitle2(color: DCZColor.white),)
-            ],
-          ),
-        ),
+              Text('프로필 사진 변경', style: DCZTextStyle.subtitle2(color: DCZColor.white)),
+            ],),),
         const SizedBox(height: 48),
         GestureDetector(
           onTap: () {
@@ -53,13 +105,14 @@ class _MyPageAccountWidgetState extends State<MyPageAccountWidget> {
                   width: 400,
                   height: 180,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: DCZColor.gray900, width: 0.5)
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: DCZColor.gray900, width: 0.5),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(padding: const EdgeInsets.only(left: 20, top: 24, bottom: 16),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20, top: 24, bottom: 16),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -115,20 +168,11 @@ class _MyPageAccountWidgetState extends State<MyPageAccountWidget> {
                                 child: Text(
                                   '확인',
                                   style: DCZTextStyle.button2(color: DCZColor.black),
-                                ),),),],),),],),),),);
-          },
+                                ),),),],),),],),),),);},
           child: Row(
             children: [
               SvgPicture.asset('assets/images/icon/mypage/logout_icon.svg'),
               const SizedBox(width: 20),
               Text(
                 '로그아웃',
-                style: DCZTextStyle.subtitle2(color: DCZColor.white),
-              ),
-            ],
-          ),
-        )
-      ],
-    );
-  }
-}
+                style: DCZTextStyle.subtitle2(color: DCZColor.white),),],),),],);}}
