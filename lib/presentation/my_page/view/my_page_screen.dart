@@ -34,8 +34,6 @@ class _MyPageScreenState extends State<MyPageScreen> {
                     children: [
                       MyPageTitleWidget(),
                       const SizedBox(height: 39),
-                      MyPageProfileWidget(),
-                      const SizedBox(height: 64),
                       MyPageAccountWidget()
                     ],
                   ),
