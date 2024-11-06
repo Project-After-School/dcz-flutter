@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 import 'package:dcz/core/dcz.dart';
 import 'dart:io';
+import 'package:path_provider/path_provider.dart';
 
 class MyPageAccountWidget extends StatefulWidget {
   const MyPageAccountWidget({super.key});
@@ -24,7 +25,7 @@ class _MyPageAccountWidgetState extends State<MyPageAccountWidget> {
 
   Future<void> _loadProfileImage() async {
     String? imagePath = await storage.read(key: 'profileImage');
-    if (imagePath != null) {
+    if (imagePath != null && await File(imagePath).exists()) {
       setState(() {
         _profileImage = File(imagePath);
       });
@@ -41,10 +42,15 @@ class _MyPageAccountWidgetState extends State<MyPageAccountWidget> {
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
 
     if (image != null) {
+      final directory = await getApplicationDocumentsDirectory();
+      final savePath = '${directory.path}/profile_image.png';
+      final savedImage = await File(image.path).copy(savePath);
+
       setState(() {
-        _profileImage = File(image.path);
+        _profileImage = savedImage;
       });
-      await storage.write(key: 'profileImage', value: image.path);
+
+      await storage.write(key: 'profileImage', value: savePath);
     }
   }
 
