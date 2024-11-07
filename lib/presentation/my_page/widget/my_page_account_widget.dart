@@ -72,9 +72,9 @@ class _MyPageAccountWidgetState extends State<MyPageAccountWidget> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('2학년 3반 1번', style: DCZTextStyle.body2(color: DCZColor.white),),
+                Text('학년 반 번', style: DCZTextStyle.body2(color: DCZColor.white),),
                 const SizedBox(height: 12),
-                Text('강해민', style: DCZTextStyle.body1(color: DCZColor.white),),
+                Text('', style: DCZTextStyle.body1(color: DCZColor.white),),
               ],
             )
           ],
