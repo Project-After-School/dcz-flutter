@@ -12,7 +12,7 @@ class NotificationDetailTitleWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('title', style: DCZTextStyle.heading4(color: DCZColor.white)),
+        Text('notificationTitle', style: DCZTextStyle.heading4(color: DCZColor.white)),
         const SizedBox(height: 24),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -20,7 +20,7 @@ class NotificationDetailTitleWidget extends StatelessWidget {
             Text('작성자: ', style: DCZTextStyle.caption3(color: DCZColor.gray600)),
             Text('날짜: ', style: DCZTextStyle.caption3(color: DCZColor.gray600)),
           ],
-        )
+        ),
       ],
     );
   }
