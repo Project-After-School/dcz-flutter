@@ -25,7 +25,7 @@ Future<List<Map<String, String>>> fetchNotifications(int skip, int limit) async 
         'limit': limit,
       },
     );
-
+    print("Response status: ${response.statusCode}");
     if (response.statusCode == 200) {
       List<dynamic> data = response.data;
       return data.map((item) => {

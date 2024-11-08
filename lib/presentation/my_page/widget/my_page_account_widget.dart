@@ -1,3 +1,4 @@
+import 'package:dcz/data/data_sources/secure_storage_data_source.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -16,6 +17,8 @@ class _MyPageAccountWidgetState extends State<MyPageAccountWidget> {
   final storage = const FlutterSecureStorage();
   File? _profileImage;
 
+  final authRepository = AuthRepository();
+
   @override
   void initState() {
     super.initState();
@@ -32,9 +35,16 @@ class _MyPageAccountWidgetState extends State<MyPageAccountWidget> {
   }
 
   Future<void> _handleLogout() async {
-    await storage.delete(key: 'login');
-    context.go('/login');
+
+    await authRepository.deleteToken();
+
+    String? tokenAfterLogout = await authRepository.getToken();
+    print("Token after logout: $tokenAfterLogout");
+
+    context.go('/onboarding');
   }
+
+
 
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();

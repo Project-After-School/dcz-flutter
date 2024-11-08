@@ -31,13 +31,29 @@ class _NotificationScreenState extends State<NotificationScreen> {
     super.dispose();
   }
 
+  String formatDate(String dateStr) {
+
+    DateTime notificationDate = DateTime.parse(dateStr);
+    Duration difference = DateTime.now().difference(notificationDate);
+
+    if (difference.inDays >= 1) {
+      return '${difference.inDays}일 전';
+    } else if (difference.inHours >= 1) {
+      return '${difference.inHours}시간 전';
+    } else if (difference.inMinutes >= 1) {
+      return '${difference.inMinutes}분 전';
+    } else {
+      return '방금';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const NotificationAppBarWidget(),
       backgroundColor: DCZColor.background,
       body: SafeArea(
-        child: SingleChildScrollView(  // Wrap the entire Column with SingleChildScrollView
+        child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -91,9 +107,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           final notifications = snapshot.data!;
                           return Column(
                             children: notifications.map((notification) {
+                              String formattedDate = formatDate(notification['date'] ?? '');
                               return DczNotification(
                                 notificationTitle: notification['title'] ?? '',
-                                date: notification['date'] ?? '',
+                                date: formattedDate,
                                 state: '안 읽음',
                               );
                             }).toList(),
