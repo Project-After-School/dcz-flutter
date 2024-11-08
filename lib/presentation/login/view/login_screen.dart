@@ -1,6 +1,6 @@
 import 'package:dcz/data/data_sources/remote/login_remote_data_source.dart';
+import 'package:dcz/data/data_sources/secure_storage_data_source.dart';
 import 'package:dcz/presentation/login/widget/login_title_widget.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:dcz/core/component/widget/dcz_textfield.dart';
 import 'package:dcz/core/component/widget/dcz_button.dart';
 import 'package:go_router/go_router.dart';
@@ -9,12 +9,11 @@ import 'package:dcz/core/dcz.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
-
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
-
 class _LoginScreenState extends State<LoginScreen> {
+
   late TextEditingController idController;
   late TextEditingController pwdController;
   late FocusNode idFocusNode;
@@ -23,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isLoading = false;
   String? errorMessage;
 
-  static final storage = FlutterSecureStorage();
+  final AuthRepository authRepository = AuthRepository();
   String? userInfo;
 
   @override
@@ -41,15 +40,14 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> _checkLoginStatus() async {
-    userInfo = await storage.read(key: 'login');
+    userInfo = await authRepository.getToken();
 
     if (userInfo != null) {
       context.push('/navigation');
     } else {
-      print('로그인이 필요합니다');
+      print('로그인 하세요');
     }
   }
-
 
   void _checkFields() {
     setState(() {
@@ -64,8 +62,8 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     try {
-      await postLoginInfo(idController.text, pwdController.text);
-      await storage.write(key: 'login', value: idController.text);
+      String token = await postLoginInfo(idController.text, pwdController.text);
+      await authRepository.saveToken(token);
       context.push('/navigation');
     } catch (e) {
       setState(() {
