@@ -1,7 +1,7 @@
 import 'package:dcz/core/di/base_url.dart';
 import 'package:dio/dio.dart';
 
-Future<void> postLoginInfo(String username, String password) async {
+Future<String> postLoginInfo(String username, String password) async {
   Dio dio = Dio();
 
   FormData formData = FormData.fromMap({
@@ -20,10 +20,17 @@ Future<void> postLoginInfo(String username, String password) async {
       data: formData,
     );
 
-    if (response.statusCode != 200) {
-      throw Exception(response.data);
+    if (response.statusCode == 200) {
+      print('Server response: ${response.data}');
+      String? token = response.data['access_token'];
+      if (token == null) {
+        throw Exception("Token is null. Please check the server response.");
+      }
+      return token;
+    } else {
+      throw Exception("Failed to retrieve token");
     }
   } catch (e) {
-    throw Exception('Failed to post login info: $e');
+      throw Exception('Failed to post login info: $e');
   }
 }
