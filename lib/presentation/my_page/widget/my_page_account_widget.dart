@@ -74,7 +74,7 @@ class _MyPageAccountWidgetState extends State<MyPageAccountWidget> {
               children: [
                 Text('학년 반 번', style: DCZTextStyle.body2(color: DCZColor.white),),
                 const SizedBox(height: 12),
-                Text('', style: DCZTextStyle.body1(color: DCZColor.white),),
+                Text('강해민', style: DCZTextStyle.body1(color: DCZColor.white),),
               ],
             )
           ],
