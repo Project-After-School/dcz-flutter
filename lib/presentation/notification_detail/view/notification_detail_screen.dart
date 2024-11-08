@@ -1,4 +1,5 @@
 import 'package:dcz/core/dcz.dart';
+import 'package:dcz/data/data_sources/remote/notification_detail_remote_data_source.dart';
 import 'package:dcz/presentation/notification_detail/widget/notification_detail_app_bar_widget.dart';
 import 'package:dcz/presentation/notification_detail/widget/notification_detail_qna_widget.dart';
 import 'package:dcz/presentation/notification_detail/widget/notification_detail_text_widget.dart';
@@ -27,11 +28,8 @@ class _NotificationDetailScreenState extends State<NotificationDetailScreen> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
-    final Map<String, dynamic> notification = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-
     return Scaffold(
       appBar: const NotificationDetailAppBarWidget(),
       backgroundColor: DCZColor.background,
@@ -44,7 +42,7 @@ class _NotificationDetailScreenState extends State<NotificationDetailScreen> {
             const SizedBox(height: 30),
             NotificationDetailTextWidget(),
             const SizedBox(height: 72),
-            const NotificationDetailQnaWidget(),
+            NotificationDetailQnaWidget(),
           ],
         ),
       ),
