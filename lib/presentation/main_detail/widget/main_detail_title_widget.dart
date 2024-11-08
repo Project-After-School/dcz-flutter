@@ -13,11 +13,15 @@ class MainDetailTitleWidget extends StatelessWidget {
         Text('수학 포스터 만들어서 제출하기', style: DCZTextStyle.heading4(color: DCZColor.white),),
         const SizedBox(height: 28),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('수학', style: DCZTextStyle.body3(color: DCZColor.gray200),),
-            const SizedBox(width: 8),
-            Text('강해민 선생님', style: DCZTextStyle.body3(color: DCZColor.gray200),),
-            const SizedBox(width: 103),
+            Row(
+              children: [
+                Text('수학', style: DCZTextStyle.body3(color: DCZColor.gray200),),
+                const SizedBox(width: 8),
+                Text('강해민 선생님', style: DCZTextStyle.body3(color: DCZColor.gray200),),
+              ],
+            ),
             Text('9월 20일 ~ 9월 30일', style: DCZTextStyle.body3(color: DCZColor.gray200),)
           ],
         )
