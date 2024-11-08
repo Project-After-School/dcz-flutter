@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 class NotificationDetailTextWidget extends StatefulWidget {
 
-
   const NotificationDetailTextWidget({
     Key? key,
   }) : super(key: key);
@@ -13,6 +12,7 @@ class NotificationDetailTextWidget extends StatefulWidget {
 }
 
 class _NotificationDetailTextWidgetState extends State<NotificationDetailTextWidget> {
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -20,6 +20,7 @@ class _NotificationDetailTextWidgetState extends State<NotificationDetailTextWid
         Text('content',
           style: DCZTextStyle.body3(color: DCZColor.gray50),
         ),
+
       ],
     );
   }
