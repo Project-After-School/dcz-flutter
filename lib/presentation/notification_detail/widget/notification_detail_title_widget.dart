@@ -1,24 +1,38 @@
 import 'package:dcz/core/dcz.dart';
 import 'package:flutter/material.dart';
 
-class NotificationDetailTitleWidget extends StatelessWidget {
+class NotificationDetailTitleWidget extends StatefulWidget {
+  final String title;
+  final String authorName;
+  final String date;
 
   const NotificationDetailTitleWidget({
     Key? key,
+    required this.title,
+    required this.authorName,
+    required this.date,
   }) : super(key: key);
 
+  @override
+  State<NotificationDetailTitleWidget> createState() => _NotificationDetailTitleWidgetState();
+}
+
+class _NotificationDetailTitleWidgetState extends State<NotificationDetailTitleWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('notificationTitle', style: DCZTextStyle.heading4(color: DCZColor.white)),
+        Text(
+          widget.title,
+          style: DCZTextStyle.heading4(color: DCZColor.white),
+        ),
         const SizedBox(height: 24),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('작성자: ', style: DCZTextStyle.caption3(color: DCZColor.gray600)),
-            Text('날짜: ', style: DCZTextStyle.caption3(color: DCZColor.gray600)),
+            Text('작성자: ${widget.authorName}', style: DCZTextStyle.caption3(color: DCZColor.gray600)),
+            Text('날짜: ${widget.date}', style: DCZTextStyle.caption3(color: DCZColor.gray600)),
           ],
         ),
       ],

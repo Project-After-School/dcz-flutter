@@ -28,6 +28,11 @@ class _NotificationDetailScreenState extends State<NotificationDetailScreen> {
     }
   }
 
+  // 반환 타입을 Future<List<Map<String, String>>>로 수정
+  Future<List<Map<String, String>>> fetchNotificationDetails() async {
+    return getNotificationsDetail('someParameter');  // 'someParameter'에 적절한 값 전달
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,15 +40,36 @@ class _NotificationDetailScreenState extends State<NotificationDetailScreen> {
       backgroundColor: DCZColor.background,
       body: Padding(
         padding: const EdgeInsets.only(left: 24, right: 24, top: 32),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            NotificationDetailTitleWidget(),
-            const SizedBox(height: 30),
-            NotificationDetailTextWidget(),
-            const SizedBox(height: 72),
-            NotificationDetailQnaWidget(),
-          ],
+        child: FutureBuilder<List<Map<String, String>>>(
+          future: fetchNotificationDetails(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return const Center(child: Text('No data available'));
+            }
+ 
+            var notificationDetail = snapshot.data![0];  // 첫 번째 항목 사용
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                NotificationDetailTitleWidget(
+                  title: notificationDetail['title'] ?? '제목 없음',
+                  date: notificationDetail['date'] ?? '날짜 없음',
+                  authorName: notificationDetail['author_name'] ?? '작성자 없음',
+                ),
+                const SizedBox(height: 30),
+                NotificationDetailTextWidget(
+                  content: notificationDetail['content'] ?? '내용 없음',
+                ),
+                const SizedBox(height: 72),
+                const NotificationDetailQnaWidget(),
+              ],
+            );
+          },
         ),
       ),
     );

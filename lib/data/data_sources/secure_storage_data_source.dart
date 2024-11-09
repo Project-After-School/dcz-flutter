@@ -5,13 +5,10 @@ class AuthRepository {
 
   Future<void> saveToken(String token) async {
     await _storage.write(key: 'auth_token', value: token);
-    print("Token saved: $token");
   }
-
   Future<String?> getToken() async {
     return await _storage.read(key: 'auth_token');
   }
-
   Future<void> deleteToken() async {
     await _storage.delete(key: 'auth_token');
   }

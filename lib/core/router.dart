@@ -26,25 +26,25 @@ final router = GoRouter(
         path: '/login',
         builder: (context, state) => const LoginScreen()
     ),
-      GoRoute(
-          path: '/mypage',
-          builder: (context, state) => const MyPageScreen()
-      ),
-      GoRoute(
-          path: '/main',
-          builder: (context, state) => const MainScreen()
-      ),
+    GoRoute(
+        path: '/mypage',
+        builder: (context, state) => const MyPageScreen()
+    ),
+    GoRoute(
+        path: '/main',
+        builder: (context, state) => const MainScreen()
+    ),
     GoRoute(
         path: '/main_detail',
         builder: (context, state) => const MainDetailScreen()
     ),
-      GoRoute(
-          path: '/notification',
-          builder: (context, state) => const NotificationScreen()
-      ),
     GoRoute(
         path: '/notification_detail',
         builder: (context, state) => const NotificationDetailScreen()
+    ),
+    GoRoute(
+        path: '/notification',
+        builder: (context, state) => const NotificationScreen()
     ),
     GoRoute(
         path: '/homework',
