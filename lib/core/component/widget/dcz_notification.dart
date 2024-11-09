@@ -26,6 +26,7 @@ class _DczNotificationState extends State<DczNotification> {
         GestureDetector(
           onTap: () {
             context.push('/notification_detail');
+            widget.notificationTitle;
           },
           child: Container(
             color: DCZColor.background,
