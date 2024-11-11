@@ -1,5 +1,6 @@
 import 'package:dcz/data/data_sources/secure_storage_data_source.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:dcz/data/data_sources/remote/my_page_remote_data_source.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -13,16 +14,18 @@ class MyPageAccountWidget extends StatefulWidget {
   @override
   State<MyPageAccountWidget> createState() => _MyPageAccountWidgetState();
 }
+
 class _MyPageAccountWidgetState extends State<MyPageAccountWidget> {
   final storage = const FlutterSecureStorage();
   File? _profileImage;
-
   final authRepository = AuthRepository();
+  Map<String, dynamic>? userInfo;
 
   @override
   void initState() {
     super.initState();
     _loadProfileImage();
+    _loadUserInfo();
   }
 
   Future<void> _loadProfileImage() async {
@@ -34,17 +37,21 @@ class _MyPageAccountWidgetState extends State<MyPageAccountWidget> {
     }
   }
 
-  Future<void> _handleLogout() async {
-
-    await authRepository.deleteToken();
-
-    String? tokenAfterLogout = await authRepository.getToken();
-    print("Token after logout: $tokenAfterLogout");
-
-    context.go('/onboarding');
+  Future<void> _loadUserInfo() async {
+    try {
+      userInfo = await getUserInfo();
+      setState(() {});
+    } catch (e) {
+      print("Error loading user info: $e");
+    }
   }
 
-
+  Future<void> _handleLogout() async {
+    await authRepository.deleteToken();
+    String? tokenAfterLogout = await authRepository.getToken();
+    print("Token after logout: $tokenAfterLogout");
+    context.go('/onboarding');
+  }
 
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
@@ -75,18 +82,32 @@ class _MyPageAccountWidgetState extends State<MyPageAccountWidget> {
                     ? DecorationImage(
                   image: FileImage(_profileImage!),
                   fit: BoxFit.cover,
-                ) : null,
+                )
+                    : null,
               ),
             ),
             const SizedBox(width: 24),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('학년 반 번', style: DCZTextStyle.body2(color: DCZColor.white),),
+                // 사용자 정보 표시
+                if (userInfo != null)
+                  Text(
+                    '${userInfo!['grade']}학년 ${userInfo!['class_num']}반 ${userInfo!['num']}번',
+                    style: DCZTextStyle.body2(color: DCZColor.white),
+                  )
+                else
+                  Text(
+                    '정보를 불러오는 중...',
+                    style: DCZTextStyle.body2(color: DCZColor.white),
+                  ),
                 const SizedBox(height: 12),
-                Text('강해민', style: DCZTextStyle.body1(color: DCZColor.white),),
+                Text(
+                  userInfo?['name'] ?? '이름 없음',
+                  style: DCZTextStyle.body1(color: DCZColor.white),
+                ),
               ],
-            )
+            ),
           ],
         ),
         const SizedBox(height: 64),
@@ -99,7 +120,9 @@ class _MyPageAccountWidgetState extends State<MyPageAccountWidget> {
               SvgPicture.asset('assets/images/icon/mypage/profile_edit_icon.svg'),
               const SizedBox(width: 20),
               Text('프로필 사진 변경', style: DCZTextStyle.subtitle2(color: DCZColor.white)),
-            ],),),
+            ],
+          ),
+        ),
         const SizedBox(height: 48),
         GestureDetector(
           onTap: () {
@@ -178,11 +201,30 @@ class _MyPageAccountWidgetState extends State<MyPageAccountWidget> {
                                 child: Text(
                                   '확인',
                                   style: DCZTextStyle.button2(color: DCZColor.black),
-                                ),),),],),),],),),),);},
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
           child: Row(
             children: [
               SvgPicture.asset('assets/images/icon/mypage/logout_icon.svg'),
               const SizedBox(width: 20),
               Text(
                 '로그아웃',
-                style: DCZTextStyle.subtitle2(color: DCZColor.white),),],),),],);}}
+                style: DCZTextStyle.subtitle2(color: DCZColor.white),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
