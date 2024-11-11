@@ -22,7 +22,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
   void initState() {
     super.initState();
     _scrollController = ScrollController();
-    _notificationsFuture = fetchNotifications(0, 10);
+    _notificationsFuture = fetchNotifications(0, 20);
   }
 
   @override
