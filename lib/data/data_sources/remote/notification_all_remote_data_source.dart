@@ -14,7 +14,7 @@ Future<List<Map<String, String>>> fetchNotifications(int skip, int limit) async 
     }
 
     final response = await dio.get(
-      '$BaseUrl/get_notification_all',
+      '$BaseUrl/get_notification_all_user',
       options: Options(
           headers: {
             'Authorization': 'Bearer $token',
