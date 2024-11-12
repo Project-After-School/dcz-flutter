@@ -28,9 +28,8 @@ class _NotificationDetailScreenState extends State<NotificationDetailScreen> {
     }
   }
 
-  // 반환 타입을 Future<List<Map<String, String>>>로 수정
   Future<List<Map<String, String>>> fetchNotificationDetails() async {
-    return getNotificationsDetail('someParameter');  // 'someParameter'에 적절한 값 전달
+    return getNotificationsDetail('someParameter');
   }
 
   @override
@@ -45,14 +44,8 @@ class _NotificationDetailScreenState extends State<NotificationDetailScreen> {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
-            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return const Center(child: Text('No data available'));
             }
- 
             var notificationDetail = snapshot.data![0];  // 첫 번째 항목 사용
-
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
