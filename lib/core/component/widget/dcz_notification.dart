@@ -1,4 +1,5 @@
 import 'package:dcz/core/dcz.dart';
+import 'package:dcz/data/data_sources/remote/notification_all_remote_data_source.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -26,7 +27,7 @@ class _DczNotificationState extends State<DczNotification> {
         GestureDetector(
           onTap: () {
             context.push('/notification_detail');
-            widget.notificationTitle;
+
           },
           child: Container(
             color: DCZColor.background,
