@@ -25,12 +25,14 @@ Future<List<Map<String, String>>> fetchNotifications(int skip, int limit) async 
         'limit': limit,
       },
     );
+
     print("Response status: ${response.statusCode}");
     if (response.statusCode == 200) {
       List<dynamic> data = response.data;
       return data.map((item) => {
         'title': item['title'] as String,
         'date': item['date'] as String,
+        'id' : item['id'].toString()
       }).toList();
     } else {
       throw Exception("Failed to load notifications");

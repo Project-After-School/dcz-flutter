@@ -38,10 +38,13 @@ final router = GoRouter(
         path: '/main_detail',
         builder: (context, state) => const MainDetailScreen()
     ),
-    GoRoute(
-        path: '/notification_detail',
-        builder: (context, state) => const NotificationDetailScreen(notificationId: '',)
-    ),
+      GoRoute(
+          path: '/notification_detail',
+          builder: (context, state) {
+              final notificationId = state.extra as String;
+              return NotificationDetailScreen(notificationId: notificationId);
+          },
+      ),
     GoRoute(
         path: '/notification',
         builder: (context, state) => const NotificationScreen()

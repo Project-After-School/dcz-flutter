@@ -8,7 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class NotificationDetailScreen extends StatefulWidget {
-  const NotificationDetailScreen({super.key});
+  final String notificationId;
+
+  const NotificationDetailScreen({required this.notificationId, super.key});
 
   @override
   State<NotificationDetailScreen> createState() => _NotificationDetailScreenState();
@@ -28,9 +30,11 @@ class _NotificationDetailScreenState extends State<NotificationDetailScreen> {
     }
   }
 
-  Future<List<Map<String, String>>> fetchNotificationDetails() async {
-    return getNotificationsDetail('someParameter');
+  Future<Map<String, String>> fetchNotificationDetails() async {
+    final details = await getNotificationsDetail(widget.notificationId);
+    return details;
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -39,30 +43,35 @@ class _NotificationDetailScreenState extends State<NotificationDetailScreen> {
       backgroundColor: DCZColor.background,
       body: Padding(
         padding: const EdgeInsets.only(left: 24, right: 24, top: 32),
-        child: FutureBuilder<List<Map<String, String>>>(
-          future: fetchNotificationDetails(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
+        child: FutureBuilder<Map<String, String>>(
+            future: fetchNotificationDetails(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Center(child: Text("Error: ${snapshot.error}"));
+              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                return const Center(child: Text("알림 정보가 없습니다."));
+              } else {
+                var notificationDetail = snapshot.data!;
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  NotificationDetailTitleWidget(
+                    title: notificationDetail['title'] ?? '제목 없음',
+                    date: formatDate(notificationDetail['date']),
+                    authorName: notificationDetail['author_name'] ?? '작성자 없음',
+                  ),
+                  const SizedBox(height: 30),
+                  NotificationDetailTextWidget(
+                    content: notificationDetail['content'] ?? '내용 없음',
+                  ),
+                  const SizedBox(height: 72),
+                  const NotificationDetailQnaWidget(),
+                ],
+              );
             }
-            var notificationDetail = snapshot.data![0];  // 첫 번째 항목 사용
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                NotificationDetailTitleWidget(
-                  title: notificationDetail['title'] ?? '제목 없음',
-                  date: notificationDetail['date'] ?? '날짜 없음',
-                  authorName: notificationDetail['author_name'] ?? '작성자 없음',
-                ),
-                const SizedBox(height: 30),
-                NotificationDetailTextWidget(
-                  content: notificationDetail['content'] ?? '내용 없음',
-                ),
-                const SizedBox(height: 72),
-                const NotificationDetailQnaWidget(),
-              ],
-            );
-          },
+          }
         ),
       ),
     );

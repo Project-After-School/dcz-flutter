@@ -107,17 +107,19 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           final notifications = snapshot.data!;
                           return Column(
                             children: notifications.map((notification) {
+                              String id = notification['id'] ?? '';
                               String formattedDate = formatDate(notification['date'] ?? '');
                               return DczNotification(
                                 notificationTitle: notification['title'] ?? '',
                                 date: formattedDate,
                                 state: '안 읽음',
+                                id: id,
                               );
                             }).toList(),
                           );
                         }
                       },
-                    ),
+                    )
                   ],
                 ),
               ),
