@@ -31,8 +31,8 @@ class _NotificationDetailTitleWidgetState extends State<NotificationDetailTitleW
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('작성자: ${widget.authorName}', style: DCZTextStyle.caption3(color: DCZColor.gray600)),
-            Text('날짜: ${widget.date}', style: DCZTextStyle.caption3(color: DCZColor.gray600)),
+            Text('${widget.authorName} 선생님', style: DCZTextStyle.caption3(color: DCZColor.gray600)),
+            Text('${widget.date}', style: DCZTextStyle.caption3(color: DCZColor.gray600)),
           ],
         ),
       ],
