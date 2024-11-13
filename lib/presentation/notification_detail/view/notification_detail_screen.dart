@@ -1,5 +1,5 @@
 import 'package:dcz/core/dcz.dart';
-import 'package:dcz/data/data_sources/remote/notification_detail_remote_data_source.dart';
+import 'package:dcz/data/data_sources/remote/notification/notification_detail_remote_data_source.dart';
 import 'package:dcz/presentation/notification_detail/widget/notification_detail_app_bar_widget.dart';
 import 'package:dcz/presentation/notification_detail/widget/notification_detail_qna_widget.dart';
 import 'package:dcz/presentation/notification_detail/widget/notification_detail_text_widget.dart';

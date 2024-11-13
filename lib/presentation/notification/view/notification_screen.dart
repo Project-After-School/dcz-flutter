@@ -5,7 +5,7 @@ import 'package:dcz/core/dcz_color.dart';
 import 'package:dcz/presentation/notification/widget/notification_app_bar_widget.dart';
 import 'package:dcz/presentation/notification/widget/notification_title_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:dcz/data/data_sources/remote/notification_all_remote_data_source.dart';
+import 'package:dcz/data/data_sources/remote/notification/notification_all_remote_data_source.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
