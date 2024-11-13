@@ -1,9 +1,12 @@
 import 'package:dcz/core/dcz.dart';
-import 'package:flutter/material.dart';
+import 'package:dcz/data/data_sources/remote/notification/notification_comment_user.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/material.dart';
 
 class NotificationDetailQnaWidget extends StatefulWidget {
-  const NotificationDetailQnaWidget({super.key});
+  final String notificationId;
+
+  const NotificationDetailQnaWidget({required this.notificationId, super.key});
 
   @override
   State<NotificationDetailQnaWidget> createState() => _NotificationDetailQnaWidgetState();
@@ -13,12 +16,20 @@ class _NotificationDetailQnaWidgetState extends State<NotificationDetailQnaWidge
   final TextEditingController _controller = TextEditingController();
   final List<String> _messages = [];
 
-  void _sendMessage() {
+  void _sendMessage() async {
     if (_controller.text.isNotEmpty) {
-      setState(() {
-        _messages.add(_controller.text);
-        _controller.clear();
-      });
+      String content = _controller.text;
+
+      final response = await postNotificationComment(widget.notificationId, content);
+
+      if (response.isNotEmpty && response['status'] == 'success') {
+        setState(() {
+          _messages.add(content);
+          _controller.clear();
+        });
+      } else {
+        print("${response['status']}");
+      }
     }
   }
 
