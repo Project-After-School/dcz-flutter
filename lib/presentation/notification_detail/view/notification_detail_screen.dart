@@ -44,16 +44,16 @@ class _NotificationDetailScreenState extends State<NotificationDetailScreen> {
       body: Padding(
         padding: const EdgeInsets.only(left: 24, right: 24, top: 32),
         child: FutureBuilder<Map<String, String>>(
-            future: fetchNotificationDetails(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Center(child: Text("Error: ${snapshot.error}"));
-              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return const Center(child: Text("알림 정보가 없습니다."));
-              } else {
-                var notificationDetail = snapshot.data!;
+          future: fetchNotificationDetails(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text("Error: ${snapshot.error}"));
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return const Center(child: Text("알림 정보가 없습니다."));
+            } else {
+              var notificationDetail = snapshot.data!;
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -67,11 +67,11 @@ class _NotificationDetailScreenState extends State<NotificationDetailScreen> {
                     content: notificationDetail['content'] ?? '내용 없음',
                   ),
                   const SizedBox(height: 72),
-                  const NotificationDetailQnaWidget(),
+                  NotificationDetailQnaWidget(notificationId: widget.notificationId), // 알림 ID 전달
                 ],
               );
             }
-          }
+          },
         ),
       ),
     );
