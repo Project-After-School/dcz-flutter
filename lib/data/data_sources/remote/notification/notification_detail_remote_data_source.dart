@@ -7,13 +7,8 @@ Future<Map<String, String>> getNotificationsDetail(String notificationId) async 
   final authRepository = AuthRepository();
 
   try {
-    if (notificationId.isEmpty) {
-      throw Exception("Notification ID is empty");
-    }
 
     String? token = await authRepository.getToken();
-    print("Full request URL: ${BaseUrl}/get_notification_detail?notification_id=$notificationId");
-    print("Token: $token");
 
     if (token == null) {
       throw Exception("No token found");
@@ -34,7 +29,6 @@ Future<Map<String, String>> getNotificationsDetail(String notificationId) async 
     print("Response status: ${response.statusCode}");
 
     if (response.statusCode == 200) {
-      // 수정: 단일 알림의 세부 정보를 Map으로 반환
       Map<String, dynamic> data = response.data;
       return {
         'title': data['title'] as String,
