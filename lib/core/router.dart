@@ -40,7 +40,7 @@ final router = GoRouter(
     ),
     GoRoute(
         path: '/notification_detail',
-        builder: (context, state) => const NotificationDetailScreen()
+        builder: (context, state) => const NotificationDetailScreen(notificationId: '',)
     ),
     GoRoute(
         path: '/notification',
