@@ -38,7 +38,7 @@ class _NotificationDetailQnaWidgetState extends State<NotificationDetailQnaWidge
 
       if (response.isNotEmpty && response['status'] == 'success') {
         setState(() {
-          _comments.add({'content': content, 'author': '나'});
+          _comments.add({'content': content, 'author_name': '나'});
           _controller.clear();
         });
       } else {
@@ -130,7 +130,7 @@ class _NotificationDetailQnaWidgetState extends State<NotificationDetailQnaWidge
           children: [
             if (!isCurrentUser)
               Text(
-                comment['author'] ?? '알 수 없음',
+                comment['author_name'] ?? '알 수 없음',
                 style: DCZTextStyle.caption3(color: DCZColor.white),
               ),
             const SizedBox(height: 4),
