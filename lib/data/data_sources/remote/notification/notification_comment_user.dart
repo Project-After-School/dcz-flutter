@@ -24,7 +24,7 @@ Future<Map<String, String>> postNotificationComment(String notificationId, Strin
       data: jsonEncode(data),
     );
 
-    print("Response status: ${response.statusCode}");
+    print("${response.statusCode}");
 
     if (response.statusCode == 200) {
       return {'status': 'success'};
