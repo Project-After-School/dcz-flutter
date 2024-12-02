@@ -130,7 +130,7 @@ class _NotificationDetailQnaWidgetState extends State<NotificationDetailQnaWidge
           children: [
             if (!isCurrentUser)
               Text(
-                comment['author_name'] ?? '알 수 없음',
+                comment['author_name'] ?? 'undefind',
                 style: DCZTextStyle.caption3(color: DCZColor.gray100),
               ),
             const SizedBox(height: 4),
