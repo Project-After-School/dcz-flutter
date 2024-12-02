@@ -8,6 +8,7 @@ Future<List<Map<String, String>>> getNotificationComments(String notificationId)
 
   try {
     String? token = await authRepository.getToken();
+    print(token);
 
     final response = await dio.get(
       '$BaseUrl/notifications/$notificationId/comments',
