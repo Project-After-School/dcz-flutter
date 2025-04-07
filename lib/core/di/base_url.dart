@@ -1,1 +1,1 @@
-const BaseUrl = "192.168.1.32:8000";
+const BaseUrl = "http://43.203.215.239:8000";
